@@ -15,7 +15,8 @@
         .container {
             background-color: #cd1c18;
             background-image: linear-gradient(326deg, #cd1c18 0%, #66023c 74%);
-            height: 100vh;
+            min-height: 100vh;
+            min-width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -33,24 +34,26 @@
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             cursor: pointer;
-            transition: all 0.3s ease-in-out;   
+            transition: all 0.3s ease-in-out; 
+            margin-top: 30px;  
         }
         .playground-card {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            margin-top: 25px;
         }
         .player1-card {
             background: #2F2F2F;
             padding: 20px;
-            width: 250px;
-            height: 200px;
+            width: 280px;
+            height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            margin-top: 25px;
         }
         .player1-card h1,
         .player2-card h1{
@@ -74,7 +77,7 @@
             justify-content: center;
             align-items: center;
             background: #C7365F;
-            padding: 10px;
+            padding: 10px 15px;
             width: 150px;
             height: 50px;
             border-radius: 10px;
@@ -88,63 +91,332 @@
             letter-spacing: 1px;
             color: #fff;
         }
-        .current-score{
+        .player1-current-score,
+        .player2-current-score {
                 color: #fff;
                 font-size: 25px;
                 font-weight: 100;
                 letter-spacing: 1px;
-                margin-bottom: 5px;
+                margin-bottom: 10px;
         }
         /* Player 2 Card */
         .player2-card {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             padding: 20px;
-            width: 250px;
-            height: 200px;
+            width: 280px;
+            height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            align-items: center;
+            align-items: center;     
         }
         .player2-card h1,
         .player2-total-score {
             color: #2F2F2F;
+        }
+        
+        .dice-controlers {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .roll {
+            height: 32px;
+            width: 100px;
+            background-color: #fff;
+            border: none;
+            color: #C7365F;
+        }
+        .dice-card {
+            position: absolute;
+            top: 357px;
+        }
+        .dice {
+            height: 35px;
+        }
+        /* #one {
+            display: none;
+        } */
+        #two {
+            display: none;
+        }
+        #three {
+            display: none;
+        }
+        #four {
+            display: none;
+        }
+        #five {
+            display: none;
+        }
+        #six {
+            display: none;
+        }
+
+        @media screen and(min-width: 768px) {
+            .playground-card {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin-top: 25px;
+            }
+            .dice-card {
+                position: absolute;
+                top: 457px;
+            }
+            
         }
 
 
 
 
     </style>
+
+
 </head>
 <body>
     
     <div class="container">
         <div class="new-game-btn">
-            <button>NEW GAME</button>
+            <button id="newGame">NEW GAME</button>
+            <button id="hold">HOLD</button>
         </div>
         <div class="playground-card">
             <!-- Player 1  -->
             <div class="player1-card">
                 <h1>PLAYER 1</h1>
                 <span class="player1-total-score">0</span>
+                <button id="" class="roll player1-roll">ROLL DICE</button>
                 <div class="current-score-card">
                     <h2>CURRENT</h2>
-                    <span class="current-score">0</span>
+                    <span class="player1-current-score">0</span>
                 </div>
             </div>
             <!-- Player 2 -->
             <div class="player2-card">
-                <h1>PLAYER 1</h1>
+                <h1>PLAYER 2</h1>
                 <span class="player2-total-score">0</span>
+                <button class="roll player2-roll">ROLL DICE</button>
                 <div class="current-score-card">
                     <h2>CURRENT</h2>
-                    <span class="current-score">0</span>
+                    <span class="player2-current-score">0</span>
                 </div>
+            </div>
+        </div>
+
+        <div class="dice-controlers">
+            <div class="dice-card">
+                <img id="one" class="dice" src="./dice image/one.png" alt="">
+                <img id="two" class="dice" src="./dice image/two.png" alt="">
+                <img id="three" class="dice" src="./dice image/three.png" alt="">
+                <img id="four" class="dice" src="./dice image/four.png" alt="">
+                <img id="five" class="dice" src="./dice image/five.png" alt="">
+                <img id="six" class="dice" src="./dice image/six.png" alt="">
             </div>
         </div>
     </div>
 
 
+
+
+    <script>
+        // Dice numbers 
+        const one = document.getElementById("one");
+        const two = document.getElementById("two");
+        const three = document.getElementById("three");
+        const four = document.getElementById("four");
+        const five = document.getElementById("five");
+        const six = document.getElementById("six");
+        
+        // Player 1 & 2 Roll Dice btn
+        const player1Roll = document.querySelector(".player1-roll");
+        const player2Roll = document.querySelector(".player2-roll");
+
+
+        // Current Score
+        const player1CurrentScoreEl = document.querySelector(".player1-current-score");
+        const player2CurrentScoreEl = document.querySelector(".player2-current-score");
+
+        // Total Score
+        const player1TotalScoreEl = document.querySelector(".player1-total-score");
+        const player2TotalScoreEl = document.querySelector(".player2-total-score");
+
+        // Total score for player 1 and player 2
+        let player1TotalScore = 0;
+        let player2TotalScore = 0;
+
+        // Current score for player 1 and player 2
+        let player1CurrentScore = 0;
+        let player2CurrentScore = 0;
+
+        // Random number generator function
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 6) + 1;
+        }
+        
+
+        // Function to show the dice image based on the random number for Player 1
+        const showPlayer1DiceImage =() =>{
+            if (player1CurrentScore === 1) {
+                one.style.display = "block";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player1CurrentScore === 2) {
+                one.style.display = "none";
+                two.style.display = "block";
+                three.style.display = "none";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player1CurrentScore === 3) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "block";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player1CurrentScore === 4) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "block";
+                five.style.display = "none";
+                six.style.display = "none"; 
+            } else if (player1CurrentScore === 5) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "none"; 
+                five.style.display = "block"; 
+                six.style.display = "none"; 
+            } else if (player1CurrentScore === 6) {
+                one.style.display = "none"; 
+                two.style.display = "none"; 
+                three.style.display = "none"; 
+                four.style.display = "none"; 
+                five.style.display = "none"; 
+                six.style.display = "block"; 
+            }
+        }
+
+        // Function to show the dice image based on the random number for Player 1
+        const showPlayer2DiceImage =() =>{
+            if (player2CurrentScore === 1) {
+                one.style.display = "block";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player2CurrentScore === 2) {
+                one.style.display = "none";
+                two.style.display = "block";
+                three.style.display = "none";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player2CurrentScore === 3) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "block";
+                four.style.display = "none";
+                five.style.display = "none";
+                six.style.display = "none";
+            } else if (player2CurrentScore === 4) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "block";
+                five.style.display = "none";
+                six.style.display = "none"; 
+            } else if (player2CurrentScore === 5) {
+                one.style.display = "none";
+                two.style.display = "none";
+                three.style.display = "none";
+                four.style.display = "none"; 
+                five.style.display = "block"; 
+                six.style.display = "none"; 
+            } else if (player2CurrentScore === 6) {
+                one.style.display = "none"; 
+                two.style.display = "none"; 
+                three.style.display = "none"; 
+                four.style.display = "none"; 
+                five.style.display = "none"; 
+                six.style.display = "block"; 
+            }
+        }
+
+
+        // player 1 roll dice function
+        player1Roll.addEventListener("click", function(){
+            const randomNumber = getRandomNumber();
+            player1CurrentScore = randomNumber;
+            player1CurrentScoreEl.innerHTML = player1CurrentScore;
+            player1TotalScore += player1CurrentScore;
+            player1TotalScoreEl.innerHTML = player1TotalScore;
+            showPlayer1DiceImage();
+        })
+
+        // player 2 roll dice function
+        player2Roll.addEventListener("click", function(){
+            const randomNumber = getRandomNumber();
+            player2CurrentScore = randomNumber;
+            player2CurrentScoreEl.innerHTML = player2CurrentScore;
+            player2TotalScore += player2CurrentScore;
+            player2TotalScoreEl.innerHTML = player2TotalScore;
+            showPlayer2DiceImage();
+        })
+
+        // New game button function
+        const newGame =document.getElementById("newGame");
+        newGame.addEventListener("click", function(){
+            player1TotalScoreEl.innerHTML = 0;
+            player2TotalScoreEl.innerHTML = 0;
+            player1CurrentScoreEl.innerHTML = 0;
+            player2CurrentScoreEl.innerHTML = 0;
+
+            player1TotalScore = 0;
+            player2TotalScore = 0;
+
+            one.style.display = "none";
+            two.style.display = "none";
+            three.style.display = "none";
+            four.style.display = "none";
+            five.style.display = "none";
+            six.style.display = "none";
+        })
+
+        // Hold button function
+        const hold = document.getElementById("hold");
+        hold.addEventListener("click", function(){
+            if(player1TotalScore > player2TotalScore){
+                player1TotalScoreEl.innerHTML = "You wins!";
+                player2TotalScoreEl.innerHTML = "Well played";
+            } else if(player2TotalScore > player1TotalScore){
+                player2TotalScoreEl.innerHTML = "You wins!";
+                player1TotalScoreEl.innerHTML = "Well played!";
+            } else if(player1TotalScore === player2TotalScore){
+                player2TotalScoreEl.innerHTML = "Play the game!";
+                player1TotalScoreEl.innerHTML = "Play the game!";
+            }
+            else {
+                player2TotalScoreEl.innerHTML = "It's a tie!";
+                player1TotalScoreEl.innerHTML = "It's a tie!";
+            }
+        });
+
+
+
+
+
+    </script>
 </body>
 </html>
